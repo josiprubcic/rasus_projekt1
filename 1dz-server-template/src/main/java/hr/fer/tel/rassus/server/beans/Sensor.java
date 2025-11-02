@@ -1,44 +1,68 @@
 package hr.fer.tel.rassus.server.beans;
 
-public class Sensor {
-  private final long id;
-  private final double temperature, pressure, humidity, co, no2, so2;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-    public Sensor(long id, double temperature, double pressure, double humidity, double co, double no2, double so2) {
-        this.id = id;
-        this.temperature = temperature;
-        this.pressure = pressure;
-        this.humidity = humidity;
-        this.co = co;
-        this.no2 = no2;
-        this.so2 = so2;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Sensor {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private double latitude, longitude;
+
+    private String ip;
+    private int port;
+
+
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reading> readings = new ArrayList<>();
+
+    public List<Reading> getReadings() {
+        return readings;
+    }
+
+    public Sensor() {
     }
 
     public long getId() {
         return id;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public double getPressure() {
-        return pressure;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public double getHumidity() {
-        return humidity;
+    public String getIp() {
+        return ip;
     }
 
-    public double getCo() {
-        return co;
+    public int getPort() {
+        return port;
     }
 
-    public double getNo2() {
-        return no2;
+    public void setId(long id) {
+        this.id = id;
+    }
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public double getSo2() {
-        return so2;
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+    public void setPort(int port) {
+        this.port = port;
     }
 }

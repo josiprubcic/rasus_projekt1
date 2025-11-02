@@ -1,7 +1,49 @@
 package hr.fer.tel.rassus.server.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+
+@Entity
 public class Reading {
   //  TODO
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sensor_id", nullable = false)
+    @JsonIgnore
+    private Sensor sensor;
+
+    public Reading(double temperature, double pressure, double humidity,
+                   double co, double no2, double so2) {
+        this.temperature = temperature;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.co = co;
+        this.no2 = no2;
+        this.so2 = so2;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
+
+
+
     private double temperature, humidity, pressure, co, no2, so2;
 
     public Reading() {
