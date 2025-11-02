@@ -1,7 +1,9 @@
 package hr.fer.tel.rassus.server.dto.sensor;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import hr.fer.tel.rassus.server.beans.Sensor;
 
+@JsonPropertyOrder({"id", "latitude", "longitude", "ip", "port"})
 public class SensorResponse {
     private long id;
     private double longitude;
@@ -11,7 +13,7 @@ public class SensorResponse {
 
     public SensorResponse() {}
 
-    public SensorResponse(long id, double longitude, Integer port, String ip, double latitude) {
+    public SensorResponse(long id, double latitude, double longitude, String ip, Integer port) {
         this.id = id;
         this.longitude = longitude;
         this.port = port;

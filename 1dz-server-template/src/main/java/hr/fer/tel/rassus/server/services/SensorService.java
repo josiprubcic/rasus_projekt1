@@ -34,8 +34,8 @@ public class SensorService {
     }
 
     public List<SensorResponse> getAllSensors(){
-        List<SensorResponse> sensors = sensorRepository.findAll().stream().map(SensorResponse::new).collect(Collectors.toList());
 
+        return sensorRepository.findAll().stream().map(SensorResponse::new).collect(Collectors.toList());
     }
 
     public SensorResponse findNearestNeighbour(Long sensorId){
